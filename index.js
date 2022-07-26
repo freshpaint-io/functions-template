@@ -1,4 +1,5 @@
 // The following APIs and libraries are available at runtime:
+// * @google-cloud/bigquery@6.0.1 as google.cloud.bigquery
 // * aws-sdk@2.1079.0 as AWS
 // * atob@2.1.2 as atob
 // * btoa@1.2.1 as btoa
