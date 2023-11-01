@@ -11,10 +11,68 @@
 // * node-fetch@2.6.0 as fetch
 
 /**
+ * @typedef {object} EventContext
+ * @property {object} library - An object whose keys and values are strings
+ * @property {object} page - An object whose keys are strings
+ */
+
+/**
+ * @typedef {object} GroupEvent
+ * @property {string} anonymousId - The anonymized device ID
+ * @property {string=} userId - Optional, the ID of the user, if any
+ * @property {string} groupId - The ID of the group
+ * @property {EventContext} context - The event context
+ * @property {string} messageId - The ID of the message
+ * @property {object} traits - An object of traits whose keys are strings
+ * @property {string} timestamp - Timestamp formatted as RFC 3339
+ * @property {string} type - Will always be the string literal "group" in this case
+ */
+
+/**
+ * @typedef {object} IdentifyEvent
+ * @property {string} anonymousId - The anonymized device ID
+ * @property {string=} userId - Optional, the ID of the user, if any
+ * @property {EventContext} context - The event context
+ * @property {string} messageId - The ID of the message
+ * @property {object} traits - An object of traits whose keys are strings
+ * @property {string} timestamp - Timestamp formatted as RFC 3339
+ * @property {string} type - Will always be the string literal "identify" in this case
+ */
+
+/**
+ * @typedef {object} PageEvent
+ * @property {string} anonymousId - The anonymized device ID
+ * @property {string=} userId - Optional, the ID of the user, if any
+ * @property {object} properties - An object of properties whose keys are strings
+ * @property {EventContext} context - The event context
+ * @property {string} messageId - The ID of the message
+ * @property {string} timestamp - Timestamp formatted as RFC 3339
+ * @property {string} type - Will always be the string literal "page" in this case
+ */
+
+/**
+ * @typedef {object} TrackEvent
+ * @property {string} anonymousId - The anonymized device ID
+ * @property {string=} userId - Optional, the ID of the user, if any
+ * @property {string} event - The name of the event
+ * @property {object} properties - An object of properties whose keys are strings
+ * @property {EventContext} context - The event context
+ * @property {string} messageId - The ID of the message
+ * @property {string} timestamp - Timestamp formatted as RFC 3339
+ * @property {string} type - Will always be the string literal "identify" in this case
+ */
+
+/**
  * Handle track event
+ * @param {TrackEvent} event
+ * @param {object} settings - An object of Lambda function settings whose keys are strings
+ * @returns {Promise<void>}
  */
 async function onTrack(event, settings) {
   // Learn more at https://documentation.freshpaint.io/developer-docs/freshpaint-sdk-reference#track
+
+  // The code below serves as an example of how you might implement your Lambda function destination to forward the
+  // event to a REST API. You can modify or replace this code below with your own implementation as needed.
   const endpoint = ''; // replace with your endpoint
 
   await fetch(endpoint, {
@@ -29,6 +87,9 @@ async function onTrack(event, settings) {
 
 /**
  * Handle identify event
+ * @param {IdentifyEvent} event
+ * @param {object} settings - An object of Lambda function settings whose keys are strings
+ * @returns {Promise<void>}
  */
 async function onIdentify(event, settings) {
   // Learn more at https://documentation.freshpaint.io/developer-docs/freshpaint-sdk-reference#identify
@@ -37,6 +98,9 @@ async function onIdentify(event, settings) {
 
 /**
  * Handle group event
+ * @param {GroupEvent} event
+ * @param {object} settings - An object of Lambda function settings whose keys are strings
+ * @returns {Promise<void>}
  */
 async function onGroup(event, settings) {
   // Learn more at https://documentation.freshpaint.io/developer-docs/freshpaint-sdk-reference#group
@@ -45,6 +109,9 @@ async function onGroup(event, settings) {
 
 /**
  * Handle page event
+ * @param {PageEvent} event
+ * @param {object} settings - An object of Lambda function settings whose keys are strings
+ * @returns {Promise<void>}
  */
 async function onPage(event, settings) {
   // Learn more at https://documentation.freshpaint.io/developer-docs/freshpaint-sdk-reference#page
